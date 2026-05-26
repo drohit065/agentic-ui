@@ -14,7 +14,7 @@ NVIDIA_BASE    = "https://integrate.api.nvidia.com/v1"
 NVIDIA_API_KEY = "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"
 
 TRACKER_BASE   = "https://app.prismxai.com:9004"
-TRACKER_KEY    = "tt_22210984f6fa88fa3ec519512f79f7fccfeeb83519f00a15c9e7715d67e8ce01"
+TRACKER_KEY    = "tc_1ac76a5ae943abae65df5a4b33c3dea53c9221d87ecf15945c41c32ae416112a"
 FEATURE_NAME   = "nvidia-chat"
 
 # Mutable container so keys can be updated at runtime without restart
@@ -38,8 +38,8 @@ def update_key():
         updated.append("NVIDIA")
 
     if tracker_key:
-        if not tracker_key.startswith("tt_"):
-            return {"error": "Invalid tracker key — must start with 'tt_'"}, 400
+        if not (tracker_key.startswith("tt_") or tracker_key.startswith("tc_")):
+            return {"error": "Invalid tracker key — must start with 'tt_' or 'tc_'"}, 400
         _state["tracker_key"] = tracker_key
         tracker.__init__(base_url=TRACKER_BASE, api_key=tracker_key)
         print(f"[key] Tracker key updated: {tracker_key[:12]}...")
